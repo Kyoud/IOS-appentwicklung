@@ -54,14 +54,22 @@
 		DDADB0451E9D0A4400ACFBE9 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
-				DDADB0461E9D0A4400ACFBE9 /* AppDelegate.swift */,
+				DDADB0581E9D0C6C00ACFBE9 /* support files */,
 				DDADB0481E9D0A4400ACFBE9 /* ViewController.swift */,
 				DDADB04A1E9D0A4400ACFBE9 /* Main.storyboard */,
+			);
+			path = Assignment1;
+			sourceTree = "<group>";
+		};
+		DDADB0581E9D0C6C00ACFBE9 /* support files */ = {
+			isa = PBXGroup;
+			children = (
+				DDADB0461E9D0A4400ACFBE9 /* AppDelegate.swift */,
 				DDADB04D1E9D0A4400ACFBE9 /* Assets.xcassets */,
 				DDADB04F1E9D0A4400ACFBE9 /* LaunchScreen.storyboard */,
 				DDADB0521E9D0A4400ACFBE9 /* Info.plist */,
 			);
-			path = Assignment1;
+			name = "support files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
