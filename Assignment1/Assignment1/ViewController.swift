@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var history: UITextView!
+    
+    
     var typing = false
     
     var displayValue: Double{
@@ -45,6 +48,7 @@ class ViewController: UIViewController {
         if let result = brain.result{
             displayValue = result
         }
+        history.text = brain.description
         
         
     }

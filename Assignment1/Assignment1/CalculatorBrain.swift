@@ -13,7 +13,7 @@ import Darwin
 struct CalculatorBrain {
     
     var resultIsPending = false
-    var description: String?
+    var description: String = "..."
     
     private var accumulator: Double?
     
@@ -42,21 +42,29 @@ struct CalculatorBrain {
     
     mutating func performOperation (_ symbol: String){
         if let operation = operations[symbol]{
-            description = description! + " " + symbol
+        
             switch operation {
             case .constant(let value):
                 accumulator = value
             case .uneryOperation(let function):
                 if accumulator != nil{
-                accumulator = function(accumulator!)
+                    accumulator = function(accumulator!)
+                    resultIsPending = false
+                    history(symbol)
                 }
             case .binaryOperation(let function):
                 if accumulator != nil {
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator!)
-                accumulator = nil
+                    accumulator = nil
+                    resultIsPending = true
+                    history(symbol)
                 }
+                
             case .equals:
+                if resultIsPending{
                 performPendingBinaryOperation()
+                description = description + "="
+                }
             }
         }
     }
@@ -65,7 +73,6 @@ struct CalculatorBrain {
         if pendingBinaryOperation != nil && accumulator != nil {
             accumulator = pendingBinaryOperation!.perform(with: accumulator!)
             pendingBinaryOperation = nil
-            resultIsPending = false
         }
     }
     
@@ -81,12 +88,23 @@ struct CalculatorBrain {
     }
     mutating func setOperand(_ operand: Double){
         accumulator = operand
-        description = String(operand)
-        resultIsPending = true
+        description = description.replacingOccurrences(of: "...", with:String(operand))
+        
+        
+        
     }
     var result: Double?{
     get{
         return accumulator
     }
+    }
+    mutating func history(_ anhang: String){
+        description = description.replacingOccurrences(of: "=", with: "")
+        if (resultIsPending){
+        description = description + anhang + " ..."
+        }else
+        {
+            description = anhang + "("+description+")"
+        }
     }
 }
