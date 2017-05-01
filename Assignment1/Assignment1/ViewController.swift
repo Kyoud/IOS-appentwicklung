@@ -24,17 +24,27 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var delete: UIButton!
     
     @IBAction func touchDigit(_ sender: UIButton) {
+        if(!(sender.currentTitle==".") || !(display.text!.contains("."))){
         if typing{
-            if(!(sender.currentTitle==".") || !(display.text!.contains("."))){
-                display.text = display.text! + sender.currentTitle!}
+                display.text = display.text! + sender.currentTitle!
             
         }else{
-            typing = true
-            display.text = sender.currentTitle!
+            if(sender.currentTitle=="." && display.text == "0"){
+                display.text = "0"+sender.currentTitle!
+            }
+            else{
+                display.text = sender.currentTitle!
+            }
+                typing = true
+        }
         }
     }
+
+
+    
     var brain = CalculatorBrain()
     
     @IBAction func performOperation(_ sender: UIButton) {
@@ -51,6 +61,13 @@ class ViewController: UIViewController {
         history.text = brain.description
         
         
+    }
+    @IBAction func deletedisplay(_ sender: UIButton) {
+        display.text! = "0"
+        history.text = " "
+        brain.description = "..."
+        brain.resultIsPending = false
+        typing = false
     }
 
 

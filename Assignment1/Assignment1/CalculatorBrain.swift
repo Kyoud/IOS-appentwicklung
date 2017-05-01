@@ -35,7 +35,7 @@ struct CalculatorBrain {
         "cos": Operation.uneryOperation({ cos($0 * Double.pi / 180)}),
         "tan": Operation.uneryOperation({ tan($0 * Double.pi / 180)}),
         "√": Operation.uneryOperation({sqrt($0)}),
-        "!": Operation.uneryOperation({ floor($0)}),
+        "-X": Operation.uneryOperation({ -($0)}),
         "X²": Operation.uneryOperation({$0 * $0}),
         "=" : Operation.equals
     ]
@@ -46,6 +46,8 @@ struct CalculatorBrain {
             switch operation {
             case .constant(let value):
                 accumulator = value
+                resultIsPending = true
+                description = description.replacingOccurrences(of: "...", with:String(symbol))
             case .uneryOperation(let function):
                 if accumulator != nil{
                     accumulator = function(accumulator!)
