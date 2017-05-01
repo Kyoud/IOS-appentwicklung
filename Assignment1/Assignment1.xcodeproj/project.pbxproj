@@ -12,6 +12,7 @@
 		DDADB04C1E9D0A4400ACFBE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDADB04A1E9D0A4400ACFBE9 /* Main.storyboard */; };
 		DDADB04E1E9D0A4400ACFBE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDADB04D1E9D0A4400ACFBE9 /* Assets.xcassets */; };
 		DDADB0511E9D0A4400ACFBE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDADB04F1E9D0A4400ACFBE9 /* LaunchScreen.storyboard */; };
+		F1F9BF331EB76C5F00E7825F /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F9BF321EB76C5F00E7825F /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		DDADB04D1E9D0A4400ACFBE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDADB0501E9D0A4400ACFBE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDADB0521E9D0A4400ACFBE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1F9BF321EB76C5F00E7825F /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				DDADB0581E9D0C6C00ACFBE9 /* support files */,
 				DDADB0481E9D0A4400ACFBE9 /* ViewController.swift */,
 				DDADB04A1E9D0A4400ACFBE9 /* Main.storyboard */,
+				F1F9BF321EB76C5F00E7825F /* CalculatorBrain.swift */,
 			);
 			path = Assignment1;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F9BF331EB76C5F00E7825F /* CalculatorBrain.swift in Sources */,
 				DDADB0491E9D0A4400ACFBE9 /* ViewController.swift in Sources */,
 				DDADB0471E9D0A4400ACFBE9 /* AppDelegate.swift in Sources */,
 			);
@@ -310,6 +314,7 @@
 				DDADB0571E9D0A4400ACFBE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

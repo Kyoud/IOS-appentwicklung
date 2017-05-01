@@ -9,16 +9,35 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var Display: UITextField!
-
-    @IBAction func touchDigit(_ sender: UIButton) {
-        print("Hello World!")
-        print(sender.currentTitle!)
-        Display.text = Display.text! + sender.currentTitle!
-        Display.backgroundColor = sender.backgroundColor
+    @IBOutlet weak var display: UILabel!
+    
+    var typing = false
+    
+    var Displayvalue: Double{
+        get{
+            return Double(display.text!)!
+        }
+        set{
+            display.text=String(newValue)
+        }
     }
 
+    
+    @IBAction func touchDigit(_ sender: UIButton) {
+        if typing{
+            display.text = display.text! + sender.currentTitle!
+        }else{
+            typing = true
+            display.text = sender.currentTitle!
+        }
+    }
+    var brain = CalculatorBrain()
+    
+    @IBAction func performOperation(_ sender: UIButton) {
+        typing = false
+        Displayvalue = brain.mathsimbols[sender.currentTitle!]!
+    }
+    
 
 }
 
