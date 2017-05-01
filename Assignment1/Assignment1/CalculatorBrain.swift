@@ -12,6 +12,9 @@ import Darwin
 
 struct CalculatorBrain {
     
+    var resultIsPending = false
+    var description: String?
+    
     private var accumulator: Double?
     
     private enum Operation{
@@ -25,11 +28,21 @@ struct CalculatorBrain {
         "π" : Operation.constant(Double.pi),
         "e" : Operation.constant(M_E),
         "+" : Operation.binaryOperation({ $0 + $1}),
+        "-" : Operation.binaryOperation({ $0 - $1}),
+        "/" : Operation.binaryOperation({ $0 / $1}),
+        "*" : Operation.binaryOperation({ $0 * $1}),
+        "sin": Operation.uneryOperation({ sin($0 * Double.pi / 180)}),
+        "cos": Operation.uneryOperation({ cos($0 * Double.pi / 180)}),
+        "tan": Operation.uneryOperation({ tan($0 * Double.pi / 180)}),
+        "√": Operation.uneryOperation({sqrt($0)}),
+        "!": Operation.uneryOperation({ floor($0)}),
+        "X²": Operation.uneryOperation({$0 * $0}),
         "=" : Operation.equals
     ]
     
     mutating func performOperation (_ symbol: String){
         if let operation = operations[symbol]{
+            description = description! + " " + symbol
             switch operation {
             case .constant(let value):
                 accumulator = value
@@ -52,6 +65,7 @@ struct CalculatorBrain {
         if pendingBinaryOperation != nil && accumulator != nil {
             accumulator = pendingBinaryOperation!.perform(with: accumulator!)
             pendingBinaryOperation = nil
+            resultIsPending = false
         }
     }
     
@@ -67,6 +81,8 @@ struct CalculatorBrain {
     }
     mutating func setOperand(_ operand: Double){
         accumulator = operand
+        description = String(operand)
+        resultIsPending = true
     }
     var result: Double?{
     get{

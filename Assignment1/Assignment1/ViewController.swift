@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
-    
     var typing = false
     
     var displayValue: Double{
@@ -25,7 +24,9 @@ class ViewController: UIViewController {
     
     @IBAction func touchDigit(_ sender: UIButton) {
         if typing{
-            display.text = display.text! + sender.currentTitle!
+            if(!(sender.currentTitle==".") || !(display.text!.contains("."))){
+                display.text = display.text! + sender.currentTitle!}
+            
         }else{
             typing = true
             display.text = sender.currentTitle!
@@ -47,7 +48,7 @@ class ViewController: UIViewController {
         
         
     }
-    
+
 
 }
 
