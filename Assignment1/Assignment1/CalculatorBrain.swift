@@ -8,14 +8,14 @@
 
 import UIKit
 import Darwin
-
+import Foundation
 
 struct CalculatorBrain {
     
     var resultIsPending = false
-    var description: String = "..."
-    
-    private var accumulator: Double?
+    var description: String?
+
+    private var accumulator: (Double?, String?)
     
     private enum Operation{
         case constant(Double)
@@ -42,38 +42,46 @@ struct CalculatorBrain {
     
     mutating func performOperation (_ symbol: String){
         if let operation = operations[symbol]{
-        
             switch operation {
             case .constant(let value):
-                accumulator = value
-                resultIsPending = true
-                description = description.replacingOccurrences(of: "...", with:String(symbol))
+                accumulator.0 = value
+                if description != nil{
+                description = description! + symbol
+                }else{
+                    description = symbol
+                }
+            
             case .uneryOperation(let function):
-                if accumulator != nil{
-                    accumulator = function(accumulator!)
-                    resultIsPending = false
-                    history(symbol)
+                if accumulator.0 != nil{
+                    accumulator.0 = function(accumulator.0!)
+                    if resultIsPending{
+                        description = description! + symbol + "(" + accumulator.1! + ")"
+                    }else{
+                        description = symbol + "(" + description! + ")"
+                    }
                 }
             case .binaryOperation(let function):
-                if accumulator != nil {
-                    pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator!)
-                    accumulator = nil
+                if accumulator.0 != nil {
                     resultIsPending = true
-                    history(symbol)
+                    description = description! + " " + symbol
+                    pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator.0!)
+                    accumulator.0 = nil
+                    accumulator.1 = ""
                 }
                 
             case .equals:
                 if resultIsPending{
-                performPendingBinaryOperation()
-                description = description + "="
+                    performPendingBinaryOperation()
+                    resultIsPending = false
                 }
             }
         }
     }
     
     private mutating func performPendingBinaryOperation(){
-        if pendingBinaryOperation != nil && accumulator != nil {
-            accumulator = pendingBinaryOperation!.perform(with: accumulator!)
+        if pendingBinaryOperation != nil && accumulator.0 != nil {
+            accumulator.0 = pendingBinaryOperation!.perform(with: accumulator.0!)
+            accumulator.1 = String(pendingBinaryOperation!.perform(with: accumulator.0!))
             pendingBinaryOperation = nil
         }
     }
@@ -89,24 +97,18 @@ struct CalculatorBrain {
         }
     }
     mutating func setOperand(_ operand: Double){
-        accumulator = operand
-        description = description.replacingOccurrences(of: "...", with:String(operand))
-        
-        
+        accumulator.0 = operand
+        accumulator.1 = String(operand)
+        if description != nil{
+        description = description! + " " + accumulator.1!
+        }else {
+            description = accumulator.1
+        }
         
     }
     var result: Double?{
     get{
-        return accumulator
+        return accumulator.0
     }
-    }
-    mutating func history(_ anhang: String){
-        description = description.replacingOccurrences(of: "=", with: "")
-        if (resultIsPending){
-        description = description + anhang + " ..."
-        }else
-        {
-            description = anhang + "("+description+")"
-        }
     }
 }

@@ -58,14 +58,18 @@ class ViewController: UIViewController {
         if let result = brain.result{
             displayValue = result
         }
-        history.text = brain.description
-        
-        
+        if !typing{
+        if brain.resultIsPending{
+            history.text = brain.description! + "..."
+        }else{
+            history.text = brain.description! + "="
+        }
+        }
     }
     @IBAction func deletedisplay(_ sender: UIButton) {
         display.text! = "0"
         history.text = " "
-        brain.description = "..."
+        brain.description = nil
         brain.resultIsPending = false
         typing = false
     }
