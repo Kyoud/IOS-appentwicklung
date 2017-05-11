@@ -69,11 +69,15 @@ class ViewController: UIViewController {
     @IBAction func deletedisplay(_ sender: UIButton) {
         display.text! = "0"
         history.text = " "
-        brain.description = nil
-        brain.resultIsPending = false
         typing = false
+        brain.clear()
     }
 
+    @IBAction func undo(_ sender: Any) {
+        display.text! = "0"
+        brain.undo()
+        history.text = brain.description!
+    }
 
 }
 

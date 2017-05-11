@@ -15,6 +15,7 @@ struct CalculatorBrain {
     var resultIsPending = false
     var description: String?
 
+    private var writeToSave = true
     private var accumulator: (Double?, String?)
     
     private enum Operation{
@@ -39,8 +40,11 @@ struct CalculatorBrain {
         "X²": Operation.uneryOperation({$0 * $0}),
         "=" : Operation.equals
     ]
+    var save:[(operand: Double, operation: String)] = []
+    
     
     mutating func performOperation (_ symbol: String){
+
         if let operation = operations[symbol]{
             switch operation {
             case .constant(let value):
@@ -59,20 +63,26 @@ struct CalculatorBrain {
                     }else{
                         description = symbol + "(" + description! + ")"
                     }
+                    setsave(symbol)
                 }
             case .binaryOperation(let function):
                 if accumulator.0 != nil {
                     resultIsPending = true
                     description = description! + " " + symbol
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator.0!)
+                    setsave(symbol)
                     accumulator.0 = nil
                     accumulator.1 = ""
+                    
                 }
                 
             case .equals:
                 if resultIsPending{
                     performPendingBinaryOperation()
                     resultIsPending = false
+                    setsave(symbol)
+                    
+                    
                 }
             }
         }
@@ -104,11 +114,32 @@ struct CalculatorBrain {
         }else {
             description = accumulator.1
         }
-        
+
     }
     var result: Double?{
     get{
         return accumulator.0
     }
+    }
+    private mutating func setsave(_ symbol: String){
+        if writeToSave{
+        save += [(operand: accumulator.0!, operation: symbol)]
+        }
+    }
+    
+    mutating func undo(){
+        save.removeLast()
+        description=nil
+        writeToSave = false
+        for step in save{
+            setOperand(step.operand)
+            performOperation(step.operation)
+        }
+        writeToSave = true
+    }
+    mutating func clear(){
+        description = nil
+        resultIsPending = false
+        save.removeAll()
     }
 }
