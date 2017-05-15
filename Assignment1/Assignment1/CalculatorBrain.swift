@@ -14,6 +14,7 @@ struct CalculatorBrain {
     
     var resultIsPending = false
     var description: String?
+    private var save:[(operand: Double, operation: String)] = []
 
     private var writeToSave = true
     private var accumulator: (Double?, String?)
@@ -40,7 +41,7 @@ struct CalculatorBrain {
         "X²": Operation.uneryOperation({$0 * $0}),
         "=" : Operation.equals
     ]
-    var save:[(operand: Double, operation: String)] = []
+
     
     
     mutating func performOperation (_ symbol: String){
@@ -69,8 +70,10 @@ struct CalculatorBrain {
                 if accumulator.0 != nil {
                     if resultIsPending{
                         performPendingBinaryOperation()
-                        resultIsPending = false
+                        pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator.0!)
+                        description = description! + " " + symbol
                         setsave(symbol)
+                        resultIsPending = false
                     }else{
                     resultIsPending = true
                     description = description! + " " + symbol
@@ -96,7 +99,7 @@ struct CalculatorBrain {
     private mutating func performPendingBinaryOperation(){
         if pendingBinaryOperation != nil && accumulator.0 != nil {
             accumulator.0 = pendingBinaryOperation!.perform(with: accumulator.0!)
-            accumulator.1 = String(pendingBinaryOperation!.perform(with: accumulator.0!))
+            accumulator.1 = String(accumulator.0!)
             pendingBinaryOperation = nil
         }
     }
