@@ -1,4 +1,4 @@
-//
+ //
 //  CalculatorBrain.swift
 //  Assignment1
 //
@@ -67,13 +67,18 @@ struct CalculatorBrain {
                 }
             case .binaryOperation(let function):
                 if accumulator.0 != nil {
+                    if resultIsPending{
+                        performPendingBinaryOperation()
+                        resultIsPending = false
+                        setsave(symbol)
+                    }else{
                     resultIsPending = true
                     description = description! + " " + symbol
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator.0!)
                     setsave(symbol)
                     accumulator.0 = nil
                     accumulator.1 = ""
-                    
+                    }
                 }
                 
             case .equals:
