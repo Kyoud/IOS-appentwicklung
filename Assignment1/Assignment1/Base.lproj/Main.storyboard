@@ -332,11 +332,22 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-TO-YDH">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-TO-YDH">
                                         <rect key="frame" x="0.0" y="557" width="373" height="92"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxf-Hv-cf1">
+                                                <rect key="frame" x="0.0" y="0.0" width="186" height="92"/>
+                                                <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <state key="normal" title="X">
+                                                    <color key="titleColor" red="0.99224792110000004" green="1" blue="0.99945552260000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="setOperand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m9m-rp-ika"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LmR-bK-sge">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="92"/>
+                                                <rect key="frame" x="187" y="0.0" width="186" height="92"/>
                                                 <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="&lt;-">

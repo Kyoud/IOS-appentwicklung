@@ -57,13 +57,11 @@ class ViewController: UIViewController {
         }
         if let result = brain.result{
             displayValue = result
+        }else{
+            displayValue = 0
         }
         if !typing{
-        if brain.resultIsPending{
-            history.text = brain.description! + "..."
-        }else{
-            history.text = brain.description! + "="
-        }
+        descriptionstyle()
         }
     }
     @IBAction func deletedisplay(_ sender: UIButton) {
@@ -74,9 +72,32 @@ class ViewController: UIViewController {
     }
 
     @IBAction func undo(_ sender: Any) {
-        display.text! = "0"
         brain.undo()
+        if brain.description != nil{
         history.text = brain.description!
+        }else{
+            history.text = " "
+        }
+        if let result = brain.result{
+            displayValue = result
+        }else{
+            displayValue = 0
+        }
+        descriptionstyle()
+    }
+    
+    private func descriptionstyle(){
+        if brain.description != nil{
+        if brain.resultIsPending{
+            history.text = brain.description! + "..."
+        }else{
+            history.text = brain.description! + "="
+        }
+    }
+    }
+    @IBAction func setOperand(_ sender: UIButton) {
+        brain.setOperand(variable: sender.currentTitle!)
+        descriptionstyle()
     }
 
 }
