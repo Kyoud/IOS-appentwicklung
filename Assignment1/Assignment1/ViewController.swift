@@ -12,6 +12,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var history: UITextView!
     
+    @IBOutlet weak var varDisplay: UITextField!
+    
+    var variables: [String:Double] = [:]
     
     var typing = false
     
@@ -23,27 +26,27 @@ class ViewController: UIViewController {
             display.text=String(newValue)
         }
     }
-
+    
     @IBOutlet weak var delete: UIButton!
     
     @IBAction func touchDigit(_ sender: UIButton) {
         if(!(sender.currentTitle==".") || !(display.text!.contains("."))){
-        if typing{
+            if typing{
                 display.text = display.text! + sender.currentTitle!
-            
-        }else{
-            if(sender.currentTitle=="." && display.text == "0"){
-                display.text = "0"+sender.currentTitle!
-            }
-            else{
-                display.text = sender.currentTitle!
-            }
+                
+            }else{
+                if(sender.currentTitle=="." && display.text == "0"){
+                    display.text = "0"+sender.currentTitle!
+                }
+                else{
+                    display.text = sender.currentTitle!
+                }
                 typing = true
-        }
+            }
         }
     }
-
-
+    
+    
     
     var brain = CalculatorBrain()
     
@@ -53,15 +56,16 @@ class ViewController: UIViewController {
             typing = false
         }
         if let mathematicalSymbol = sender.currentTitle {
-            brain.performOperation(mathematicalSymbol)
+            brain.setOperation(mathematicalSymbol)
+            descriptionstyle( result: brain.evaluate(using: variables))
         }
-        if let result = brain.result{
-            displayValue = result
-        }else{
-            displayValue = 0
-        }
+        /*if let result = brain.result{
+         displayValue = result
+         }else{
+         displayValue = 0
+         }*/
         if !typing{
-        descriptionstyle()
+            //descriptionstyle()
         }
     }
     @IBAction func deletedisplay(_ sender: UIButton) {
@@ -70,35 +74,31 @@ class ViewController: UIViewController {
         typing = false
         brain.clear()
     }
-
-    @IBAction func undo(_ sender: Any) {
-        brain.undo()
-        if brain.description != nil{
-        history.text = brain.description!
-        }else{
-            history.text = " "
-        }
-        if let result = brain.result{
-            displayValue = result
-        }else{
-            displayValue = 0
-        }
-        descriptionstyle()
+    @IBAction func useVariable(_ sender: UIButton) {
+        brain.setVariable(sender.currentTitle!)
     }
     
-    private func descriptionstyle(){
-        if brain.description != nil{
-        if brain.resultIsPending{
-            history.text = brain.description! + "..."
+    @IBAction func setVariable(_ sender: UIButton) {
+        varDisplay.text = "M: " + String(displayValue)
+        brain.setVariable(sender.currentTitle!)
+        variables["M"] = displayValue
+    }
+    
+    @IBAction func undo(_ sender: Any) {
+        brain.undo()
+         descriptionstyle( result: brain.evaluate(using: variables))
+        
+    }
+    func descriptionstyle(result:( Double?, Bool, String)){
+        history.text = result.2
+        
+        if result.0 != nil {
+            displayValue = result.0!
+        }
+        if result.1{
+            history.text = history.text + "..."
         }else{
-            history.text = brain.description! + "="
+            history.text = history.text + "="
         }
     }
-    }
-    @IBAction func setOperand(_ sender: UIButton) {
-        brain.setOperand(variable: sender.currentTitle!)
-        descriptionstyle()
-    }
-
 }
-
