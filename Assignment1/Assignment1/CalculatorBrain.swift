@@ -161,7 +161,7 @@
                     accumulator.1 = value//String(describing: variables?[value]!)
                 }else{
                     accumulator.0 = 0
-                    accumulator.1 = "0"
+                    accumulator.1 = "M"
                 }
                 
                 

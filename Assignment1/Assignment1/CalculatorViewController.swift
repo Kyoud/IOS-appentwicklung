@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var history: UITextView!
     
@@ -69,10 +69,12 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func deletedisplay(_ sender: UIButton) {
-        display.text! = "0"
+        display.text! = ""
         history.text = " "
         typing = false
         brain.clear()
+        varDisplay.text = "M:"
+        variables.removeAll()
     }
     @IBAction func useVariable(_ sender: UIButton) {
         brain.setVariable(sender.currentTitle!)
@@ -80,14 +82,20 @@ class ViewController: UIViewController {
     
     @IBAction func setVariable(_ sender: UIButton) {
         varDisplay.text = "M: " + String(displayValue)
-        brain.setVariable(sender.currentTitle!)
         variables["M"] = displayValue
+        descriptionstyle( result: brain.evaluate(using: variables))
+        typing=false
     }
     
     @IBAction func undo(_ sender: Any) {
+        if(!typing){
         brain.undo()
-         descriptionstyle( result: brain.evaluate(using: variables))
-        
+        descriptionstyle( result: brain.evaluate(using: variables))
+        }else if(display.text != ""){
+            var tmp = display.text!
+            tmp.remove(at: tmp.index(before: tmp.endIndex))
+            display.text = tmp
+        }
     }
     func descriptionstyle(result:( Double?, Bool, String)){
         history.text = result.2

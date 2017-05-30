@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Calculator View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -52,14 +52,14 @@
                                         <rect key="frame" x="0.0" y="185.5" width="373" height="92"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="M: " borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ad0-4P-QOA">
-                                                <rect key="frame" x="0.0" y="0.0" width="92.5" height="92"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="74" height="92"/>
                                                 <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ne-d5-5in">
-                                                <rect key="frame" x="93.5" y="0.0" width="92.5" height="92"/>
+                                                <rect key="frame" x="75" y="0.0" width="73.5" height="92"/>
                                                 <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="M">
@@ -70,7 +70,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yss-Iw-ltX">
-                                                <rect key="frame" x="187" y="0.0" width="92.5" height="92"/>
+                                                <rect key="frame" x="149.5" y="0.0" width="74" height="92"/>
                                                 <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="-&gt;M">
@@ -81,7 +81,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LmR-bK-sge">
-                                                <rect key="frame" x="280.5" y="0.0" width="92.5" height="92"/>
+                                                <rect key="frame" x="224.5" y="0.0" width="73.5" height="92"/>
                                                 <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="&lt;-">
@@ -89,6 +89,18 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="undo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UVV-dx-KyQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhn-M2-d2u">
+                                                <rect key="frame" x="299" y="0.0" width="74" height="92"/>
+                                                <color key="backgroundColor" red="0.0" green="0.13037923579999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <state key="normal" title="Graph">
+                                                    <color key="titleColor" red="0.99224792110000004" green="1" blue="0.99945552260000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="undo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hmg-KO-3Xh"/>
+                                                    <segue destination="ou0-g6-cMx" kind="show" id="kss-ZJ-xz6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -396,7 +408,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-370.39999999999998" y="137.18140929535232"/>
+            <point key="canvasLocation" x="-556" y="109"/>
+        </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="k2f-pB-fwK">
+            <objects>
+                <viewController id="ou0-g6-cMx" customClass="GraphViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6fL-Rw-uI7"/>
+                        <viewControllerLayoutGuide type="bottom" id="zmE-eu-MQ8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7a7-Bi-GW8" customClass="GraphView" customModule="Assignment1" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kij-gh-jqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="293.60000000000002" y="107.49625187406298"/>
         </scene>
     </scenes>
 </document>
