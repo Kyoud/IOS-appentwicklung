@@ -12,6 +12,11 @@ import UIKit
 class GraphViewController: UIViewController {
 
     
-    
-    
+    func calculatepoints()->Array<Int>{
+        var points = [Int]()
+        for index in -10...10{
+            points.append(2*index)
+    }
+        return points
+    }
 }
